@@ -43,8 +43,7 @@ zstyle ':completion:*' group-name ”
 
 #alias
 #
-#alias ls='exa -l -h -a --git'
-alias ls='ls -lah --color'
+alias ls='exa -l -h -a --git'
 alias less=/usr/share/vim/vim81/macros/less.sh
 
 alias akadev="docker run --rm -it --name akamai -v $HOME/.edgerc:/root/.edgerc -v $(pwd):/work -w /work akamai/shell "
