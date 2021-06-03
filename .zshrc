@@ -70,5 +70,7 @@ function tf(){
    hashicorp/terraform:$1 "$@[3, -1]";
 }
 
+export PATH="$HOME/tools/tfenv/bin:$PATH"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
