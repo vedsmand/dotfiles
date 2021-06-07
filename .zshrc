@@ -50,10 +50,6 @@ alias akadev="docker run --rm -it --name akamai -v $HOME/.edgerc:/root/.edgerc -
 alias jupydev="docker run --rm -p 8888:8888 --name jupyter -e JUPYTER_ENABLE_LAB=yes -v $(pwd):/home/jovyan docker.io/jupyter/scipy-notebook:latest"
 alias config='/usr/bin/git --git-dir=/home/dv/.cfg/ --work-tree=/home/dv'
 
-alias vpn_start='openvpn3 session-start --config Documents/vpn/dve.ovpn'
-alias vpn_stop='openvpn3 session-manage --disconnect  --config Documents/vpn/dve.ovpn'
-alias vpn_restart='openvpn3 session-manage --restart  --config Documents/vpn/dve.ovpn'
-
 #functions
 #
 function tf(){
@@ -71,6 +67,10 @@ function tf(){
 }
 
 export PATH="$HOME/tools/tfenv/bin:$PATH"
+
+source "$HOME/repos/cli-helpers/.azure"
+source "$HOME/repos/cli-helpers/.vpn"
+
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
