@@ -70,6 +70,7 @@ export PATH="$HOME/tools/tfenv/bin:$PATH"
 
 source "$HOME/repos/cli-helpers/.azure"
 source "$HOME/repos/cli-helpers/.vpn"
+source "$HOME/repos/cli-helpers/.vault"
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
