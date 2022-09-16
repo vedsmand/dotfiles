@@ -43,35 +43,30 @@ zstyle ':completion:*' group-name ”
 
 #alias
 #
-alias ls='exa -l -h -a --git'
-alias less=/usr/share/vim/vim81/macros/less.sh
+alias ls='exa -lah'
 
-alias akadev="docker run --rm -it --name akamai -v $HOME/.edgerc:/root/.edgerc -v $(pwd):/work -w /work akamai/shell "
-alias jupydev="docker run --rm -p 8888:8888 --name jupyter -e JUPYTER_ENABLE_LAB=yes -v $(pwd):/home/jovyan docker.io/jupyter/scipy-notebook:latest"
 alias config='/usr/bin/git --git-dir=/home/dv/.cfg/ --work-tree=/home/dv'
 
+alias vim=nvim.appimage
 #functions
 #
-function tf(){
-  docker run --rm -ti --name terraform -v $(pwd):/workspace \
-  -v ${SSH_AUTH_SOCK}:${SSH_AUTH_SOCK} \
-  -e SSH_AUTH_SOCK="${SSH_AUTH_SOCK}" \
-  -w /workspace \
-  -e AWS_REGION \
-  -e AWS_ACCESS_KEY_ID \
-  -e AWS_SECRET_ACCESS_KEY \
-  -e AWS_SESSION_TOKEN \
-  -e AWS_SECURITY_TOKEN \
-  -e AWS_SESSION_EXPIRATION \
-   hashicorp/terraform:$1 "$@[3, -1]";
-}
+
+alias start-bsd='virsh start netbsd9.0 && sleep 60 && ssh bsd'
 
 export PATH="$HOME/tools/tfenv/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+export PRE_COMMIT_COLOR=never
 
 source "$HOME/repos/cli-helpers/.azure"
 source "$HOME/repos/cli-helpers/.vpn"
 source "$HOME/repos/cli-helpers/.vault"
+source "$HOME/repos/cli-helpers/.jwt"
+source <(kubectl completion zsh)
 
+eval "$(zoxide init zsh)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+

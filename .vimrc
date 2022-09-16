@@ -1,15 +1,13 @@
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/nvim/vim-plug/')
 "
 Plug 'VundleVim/Vundle.vim'
 Plug 'vim-airline/vim-airline'
+Plug 'https://github.com/jamestthompson3/nvim-remote-containers.git'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'terryma/vim-smooth-scroll'
 Plug 'morhetz/gruvbox'
-"Plug 'preservim/nerdtree'
 Plug 'hashivim/vim-terraform'
-Plug 'vimwiki/vimwiki'
 Plug 'jiangmiao/auto-pairs'
 Plug 'justinmk/vim-dirvish'
 "
