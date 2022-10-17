@@ -1,34 +1,50 @@
-local Plug = vim.fn['plug#']
-local map  = vim.api.nvim_set_keymap 
+--------------------------------------------
+--
+--this config is working for nvim version:
+--
+--  NVIM v0.8.0-1210-gd367ed9b2
+--  Build type: RelWithDebInfo
+--  LuaJIT 2.1.0-beta3
+--
+--------------------------------------------
 
+
+local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/nvim/vim-plug')
 
-Plug 'tpope/vim-fugitive'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'jamestthompson3/nvim-remote-containers'
+Plug 'nvim-lualine/lualine.nvim'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'morhetz/gruvbox'
-Plug 'hashivim/vim-terraform'
 Plug 'justinmk/vim-dirvish'
-Plug 'phaazon/hop.nvim'
 Plug 'numToStr/FTerm.nvim'
--- telescope --
+Plug 'hashivim/vim-terraform' -- for hcl highlight
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})  -- We recommend updating the parsers on update
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
--- telescop --
-Plug 'Chiel92/vim-autoformat' -- python3 autoformat
+Plug 'ANGkeith/telescope-terraform-doc.nvim'
 Plug 'iamcco/markdown-preview.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'rafamadriz/friendly-snippets'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'beauwilliams/focus.nvim'
+Plug'akinsho/bufferline.nvim'
+Plug 'Yggdroot/indentLine'
+Plug 'dense-analysis/ale'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 vim.call('plug#end')
 
 vim.cmd([[
 
 filetype plugin indent on " 
-"
-let g:airline_theme='biogoo'
-let g:airline#extensions#tabline#enabled = 1
 "
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
@@ -58,13 +74,24 @@ set background=dark
 colorscheme gruvbox
 set cursorline            " highlight current line
 set showmatch             " highlight matching [{()}]
-set wildmenu              " Display command line's tab complete options as a menu.
+"set wildmenu              Display command line's tab complete options as a menu.
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 set noshowmode
 let mapleader = " "
 set splitbelow
 set splitright
+set completeopt=menu,menuone,noselect "needed for nvim-cmp
+
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab " yaml indentation
+
+"" ale yamllint "" https://www.arthurkoziel.com/setting-up-vim-for-yaml/
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_text_changed = 'never'
+
+"" ale yamllint ""
 
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -85,24 +112,27 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>gc <cmd>Telescope git_commits<cr>
 nnoremap <leader>gb <cmd>Telescope git_branches<cr>
 nnoremap <leader>gs <cmd>Telescope git_status<cr>
+nnoremap <leader>ott :Telescope terraform_doc<cr>
+nnoremap <leader>otm :Telescope terraform_doc modules<cr>
 
 command Exec set splitright | vnew | set filetype=sh | read !sh #
-
 ]])
 
--- hop
-require'hop'.setup()
-map('n', '<leader>ww', "<cmd>lua require'hop'.hint_words()<cr>", {})
-map('n', '<leader>ll', "<cmd>lua require'hop'.hint_lines()<cr>", {})
---hop
+require('gitsigns').setup()
+require("focus").setup()
+require("luasnip")
+require('lualine').setup {
+  options = { theme  = 'gruvbox' },
+}
+require("snippets")
+require("completion")
+require("luasnip/loaders/from_vscode").lazy_load()
+require("fterm")
+require("lspconf")
+require("treesitter")
+require("bufferline").setup{}
+require("terraform")
+require('telescope').load_extension('terraform_doc')
 
-
--- FTerm
-require'FTerm'.setup({
-  cmd = 'zsh'
-})
-local FTerm_opts = { noremap = true, silent = true }
-map('n', '<leader>tt', '<CMD>lua require("FTerm").toggle()<CR>', FTerm_opts)
-map('t', '<leader>tt', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', FTerm_opts)
--- FTerm
-
+--
+-- https://github.com/axkirillov/easypick.nvim

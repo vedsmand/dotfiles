@@ -47,7 +47,7 @@ alias ls='exa -lah'
 
 alias config='/usr/bin/git --git-dir=/home/dv/.cfg/ --work-tree=/home/dv'
 
-alias vim=nvim.appimage
+alias vim=/usr/bin/nvim.appimage
 #functions
 #
 
