@@ -90,7 +90,6 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_text_changed = 'never'
-
 "" ale yamllint ""
 
 nnoremap <leader>h :wincmd h<CR>
@@ -104,7 +103,8 @@ nnoremap <c-h> :bprevious<CR>
 nnoremap <c-l> :bnext<CR>
 
 nnoremap ; :
-" Telescope
+
+" telescope
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
@@ -112,8 +112,11 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>gc <cmd>Telescope git_commits<cr>
 nnoremap <leader>gb <cmd>Telescope git_branches<cr>
 nnoremap <leader>gs <cmd>Telescope git_status<cr>
-nnoremap <leader>ott :Telescope terraform_doc<cr>
-nnoremap <leader>otm :Telescope terraform_doc modules<cr>
+nnoremap <leader>td :Telescope terraform_doc<cr>
+nnoremap <leader>tm :Telescope terraform_doc modules<cr>
+" telescope
+
+nnoremap <leader>sv :source ~/.config/nvim/init.lua<CR>
 
 command Exec set splitright | vnew | set filetype=sh | read !sh #
 ]])
