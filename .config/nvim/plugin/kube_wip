@@ -21,3 +21,12 @@ function! KustomizeBuildFromFile()
 endfunction
 
 nnoremap <leader>kk :call KustomizeBuildFromFile()<cr>
+
+function! KubectlValidateFile()
+    silent !clear
+
+endfunction
+
+  
+nnoremap <leader>kv :w ! kubectl apply --server-side=true --dry-run=server --validate=strict -f -<cr>
+command DveTest write | set splitright | vnew | set filetype=sh | !kubectl apply --server-side=true --dry-run=server --validate=strict -f - | read 

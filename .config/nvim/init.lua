@@ -8,7 +8,6 @@
 --
 --------------------------------------------
 
-
 local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/nvim/vim-plug')
 
@@ -43,7 +42,6 @@ Plug 'saadparwaiz1/cmp_luasnip'
 vim.call('plug#end')
 
 vim.cmd([[
-
 filetype plugin indent on " 
 "
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
@@ -90,6 +88,7 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_sign_error = '✘'
 let g:ale_sign_warning = '⚠'
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_disable_lsp = 1
 "" ale yamllint ""
 
 nnoremap <leader>h :wincmd h<CR>
@@ -98,7 +97,7 @@ nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <silent> <Leader>+ :vertical resize +5<CR>
 nnoremap <silent> <Leader>- :vertical resize -5<CR>
-
+nnoremap <leader>bd :bdelete<CR>
 nnoremap <c-h> :bprevious<CR>
 nnoremap <c-l> :bnext<CR>
 
@@ -133,9 +132,20 @@ require("luasnip/loaders/from_vscode").lazy_load()
 require("fterm")
 require("lspconf")
 require("treesitter")
-require("bufferline").setup{}
+require('bufferline').setup {
+    options = {
+        diagnostics = "nvim_lsp",
+        color_icons = true,
+        indicator = { style = 'underline'},
+        show_close_icon = false,
+        show_buffer_icons = true,
+        show_buffer_close_icons = false,
+        show_buffer_default_icon = true,
+        show_tab_indicators = false,
+        separator_style = { '|', '|' },
+   },
+}
 require("terraform")
 require('telescope').load_extension('terraform_doc')
-
 --
 -- https://github.com/axkirillov/easypick.nvim
