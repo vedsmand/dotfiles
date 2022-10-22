@@ -44,6 +44,7 @@ zstyle ':completion:*' group-name ”
 #alias
 #
 alias ls='exa -lah'
+alias k='kubectl'
 
 alias config='/usr/bin/git --git-dir=/home/dv/.cfg/ --work-tree=/home/dv'
 
