@@ -17,7 +17,7 @@ function! KustomizeBuildFromFile()
 
     " insert the rendered yaml
     call append(0, split(yaml, '\v\n'))
-
+    normal! gg
 endfunction
 
 nnoremap <leader>kk :call KustomizeBuildFromFile()<cr>
